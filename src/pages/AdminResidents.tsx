@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Search, Trash2 } from 'lucide-react';
+import { Search, Trash2, Phone, MapPin, Calendar } from 'lucide-react';
 import AdminLayout from '../components/AdminLayout';
 import { getResidents, deleteResident } from '../api/residents';
 import type { Resident } from '../types/resident';
@@ -50,8 +50,9 @@ export default function AdminResidents() {
       {loading && <p className="text-ink-soft">Loading...</p>}
       {!loading && filtered.length === 0 && <p className="text-ink-soft">No residents found.</p>}
 
+      {/* Desktop table */}
       {!loading && filtered.length > 0 && (
-        <div className="bg-surface border border-line rounded-md shadow-card overflow-x-auto">
+        <div className="hidden md:block bg-surface border border-line rounded-md shadow-card overflow-x-auto">
           <table className="w-full min-w-[600px]">
             <thead>
               <tr className="bg-bg">
@@ -86,6 +87,28 @@ export default function AdminResidents() {
           </table>
         </div>
       )}
+
+      {/* Mobile card list */}
+      <div className="md:hidden flex flex-col gap-3">
+        {filtered.map((r) => (
+          <div key={r.id} className="bg-surface border border-line rounded-md shadow-card p-4">
+            <h3 className="text-sm font-semibold text-ink mb-2">{r.full_name}</h3>
+            <div className="flex flex-col gap-1 text-xs text-ink-soft mb-3">
+              <span className="flex items-center gap-1.5"><Phone size={12} /> {r.phone_number}</span>
+              {r.purok_zone && <span className="flex items-center gap-1.5"><MapPin size={12} /> {r.purok_zone}</span>}
+              <span className="flex items-center gap-1.5">
+                <Calendar size={12} /> {new Date(r.created_at).toLocaleDateString('en-PH')}
+              </span>
+            </div>
+            <button
+              onClick={() => handleDelete(r.id)}
+              className="w-full flex items-center justify-center gap-1.5 text-xs font-medium text-urgent border border-urgent/30 py-2 rounded-md pt-2 border-t border-line"
+            >
+              <Trash2 size={13} /> Remove
+            </button>
+          </div>
+        ))}
+      </div>
     </AdminLayout>
   );
 }

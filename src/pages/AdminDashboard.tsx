@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { Plus, Pencil, Trash2, Calendar } from 'lucide-react';
 import AdminLayout from '../components/AdminLayout';
 import AnnouncementForm from '../components/AnnouncementForm';
 import type { Announcement } from '../types/announcement';
@@ -50,12 +50,12 @@ export default function AdminDashboard() {
 
   return (
     <AdminLayout>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <h1 className="text-2xl font-bold text-ink">Announcements</h1>
         {view === 'list' && (
           <button
             onClick={() => setView('create')}
-            className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-4 py-2.5 rounded-md transition-colors"
+            className="flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-4 py-2.5 rounded-md transition-colors"
           >
             <Plus size={16} />
             New Announcement
@@ -82,8 +82,9 @@ export default function AdminDashboard() {
             <p className="text-ink-soft">No announcements yet.</p>
           )}
 
+          {/* Desktop table */}
           {announcements.length > 0 && (
-            <div className="bg-surface border border-line rounded-md shadow-card overflow-hidden">
+            <div className="hidden md:block bg-surface border border-line rounded-md shadow-card overflow-hidden">
               <table className="w-full">
                 <thead>
                   <tr className="bg-bg">
@@ -134,6 +135,41 @@ export default function AdminDashboard() {
               </table>
             </div>
           )}
+
+          {/* Mobile card list */}
+          <div className="md:hidden flex flex-col gap-3">
+            {announcements.map((a) => (
+              <div key={a.id} className="bg-surface border border-line rounded-md shadow-card p-4">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <h3 className="text-sm font-semibold text-ink leading-snug">{a.title}</h3>
+                  {a.is_urgent && (
+                    <span className="flex-shrink-0 flex items-center gap-1 text-[10px] font-bold uppercase text-urgent bg-urgent/10 px-2 py-1 rounded-full">
+                      <span className="w-1.5 h-1.5 rounded-full bg-urgent" />
+                      Urgent
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-ink-soft mb-1">{categoryLabels[a.category]}</p>
+                <p className="flex items-center gap-1.5 text-xs text-ink-soft mb-3">
+                  <Calendar size={12} /> {formatDate(a.event_date)}
+                </p>
+                <div className="flex gap-2 pt-3 border-t border-line">
+                  <button
+                    onClick={() => setView({ edit: a })}
+                    className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-ink-soft border border-line py-2 rounded-md"
+                  >
+                    <Pencil size={13} /> Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(a.id)}
+                    className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium text-urgent border border-urgent/30 py-2 rounded-md"
+                  >
+                    <Trash2 size={13} /> Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </>
       )}
     </AdminLayout>
