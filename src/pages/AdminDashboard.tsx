@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Plus, Pencil, Trash2, Calendar } from 'lucide-react';
+﻿import { useEffect, useState } from 'react';
+import { Plus, Pencil, Trash2, Calendar, ExternalLink } from 'lucide-react';
 import AdminLayout from '../components/AdminLayout';
 import AnnouncementForm from '../components/AnnouncementForm';
 import type { Announcement } from '../types/announcement';
@@ -14,7 +14,7 @@ import { categoryLabels } from '../utils/categoryStyles';
 type ViewMode = 'list' | 'create' | { edit: Announcement };
 
 function formatDate(dateStr: string | null): string {
-  if (!dateStr) return '—';
+  if (!dateStr) return '-';
   return new Date(dateStr).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
@@ -28,7 +28,9 @@ export default function AdminDashboard() {
     getAnnouncements().then((res) => setAnnouncements(res.data)).finally(() => setLoading(false));
   };
 
-  useEffect(() => { loadAnnouncements(); }, []);
+  useEffect(() => {
+    loadAnnouncements();
+  }, []);
 
   const handleCreate = async (data: Partial<Announcement>) => {
     await createAnnouncement(data);
@@ -51,7 +53,18 @@ export default function AdminDashboard() {
   return (
     <AdminLayout>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-        <h1 className="text-2xl font-bold text-ink">Announcements</h1>
+        <div>
+          <h1 className="text-2xl font-bold text-ink">Announcements</h1>
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary-dark mt-1"
+          >
+            <ExternalLink size={12} />
+            View Public Site
+          </a>
+        </div>
         {view === 'list' && (
           <button
             onClick={() => setView('create')}
@@ -82,7 +95,6 @@ export default function AdminDashboard() {
             <p className="text-ink-soft">No announcements yet.</p>
           )}
 
-          {/* Desktop table */}
           {announcements.length > 0 && (
             <div className="hidden md:block bg-surface border border-line rounded-md shadow-card overflow-hidden">
               <table className="w-full">
@@ -136,7 +148,6 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {/* Mobile card list */}
           <div className="md:hidden flex flex-col gap-3">
             {announcements.map((a) => (
               <div key={a.id} className="bg-surface border border-line rounded-md shadow-card p-4">
