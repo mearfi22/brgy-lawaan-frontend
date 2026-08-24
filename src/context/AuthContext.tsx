@@ -5,7 +5,7 @@ import { login as loginApi, logout as logoutApi } from '../api/auth';
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
-  login: (credentials: LoginCredentials) => Promise<void>;
+  login: (credentials: LoginCredentials, rememberMe?: boolean) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -16,19 +16,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // On app load, check if we already have a saved session
-    const savedUser = localStorage.getItem('auth_user');
-    const token = localStorage.getItem('auth_token');
+    // Check localStorage first (remembered sessions), then sessionStorage (this-tab-only sessions)
+    const savedUser = localStorage.getItem('auth_user') || sessionStorage.getItem('auth_user');
+    const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
     if (savedUser && token) {
       setUser(JSON.parse(savedUser));
     }
     setIsLoading(false);
   }, []);
 
-  const login = async (credentials: LoginCredentials) => {
+  const login = async (credentials: LoginCredentials, rememberMe = true) => {
     const { user, token } = await loginApi(credentials);
-    localStorage.setItem('auth_token', token);
-    localStorage.setItem('auth_user', JSON.stringify(user));
+    const storage = rememberMe ? localStorage : sessionStorage;
+    storage.setItem('auth_token', token);
+    storage.setItem('auth_user', JSON.stringify(user));
     setUser(user);
   };
 
@@ -40,6 +41,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     localStorage.removeItem('auth_token');
     localStorage.removeItem('auth_user');
+    sessionStorage.removeItem('auth_token');
+    sessionStorage.removeItem('auth_user');
     setUser(null);
   };
 
