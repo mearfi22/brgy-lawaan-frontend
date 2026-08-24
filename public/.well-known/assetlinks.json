@@ -1,10 +1,8 @@
-[
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
-    "target": {
-      "namespace": "android_app",
-      "package_name": "dev.workers.ifraemporras4.lawaanonkonek.twa",
-      "sha256_cert_fingerprints": ["25:4F:2F:53:97:B7:A6:A1:14:9F:CF:D1:20:03:78:75:4A:58:09:02:F0:77:75:BC:84:01:48:B5:B9:BF:0D:81"]
-    }
-  }
-]
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "dev.workers.ifraemporras4.lawaanonkonek.twa",
+        "sha256_cert_fingerprints": ["25:4F:2F:53:97:B7:A6:A1:14:9F:CF:D1:20:B3:78:75:4A:58:09:82:F0:77:75:BC:84:01:48:B5:B9:BF:0D:81"]
+      }
+    }]
