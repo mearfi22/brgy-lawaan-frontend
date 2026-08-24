@@ -4,6 +4,7 @@ import { getDirectory } from '../api/directory';
 import type { DirectoryEntry, DirectoryType } from '../types/directory';
 import PublicHeader from '../components/PublicHeader';
 import MobileTabBar from '../components/MobileTabBar';
+import OfflineBanner from '../components/OfflineBanner';
 
 const typeLabels: Record<DirectoryType, string> = {
   abtc: 'Animal Bite Treatment Center',
@@ -18,10 +19,18 @@ export default function Directory() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const load = () => {
     setLoading(true);
     const type = filterType === 'all' ? undefined : filterType;
     getDirectory(type).then(setEntries).finally(() => setLoading(false));
+  };
+
+  useEffect(() => { load(); }, [filterType]);
+
+  useEffect(() => {
+    const handleOnline = () => load();
+    window.addEventListener('online', handleOnline);
+    return () => window.removeEventListener('online', handleOnline);
   }, [filterType]);
 
   const filtered = entries.filter((e) =>
@@ -32,10 +41,11 @@ export default function Directory() {
   return (
     <>
       <PublicHeader />
+      <OfflineBanner />
       <div className="max-w-2xl mx-auto px-5 pt-6 pb-24 md:pb-16 bg-bg min-h-[calc(100vh-64px)]">
         <header className="text-center mb-6">
           <h1 className="text-2xl font-bold text-ink mb-1">Health Facility Directory</h1>
-          <p className="text-xs uppercase tracking-wide text-ink-soft">Brgy. Lawa-an, Roxas City, Capiz</p>
+          <p className="text-xs uppercase tracking-wide text-ink-soft">Roxas City, Capiz</p>
         </header>
 
         <div className="relative mb-4">
@@ -49,7 +59,7 @@ export default function Directory() {
           />
         </div>
 
-          <div className="flex gap-2 mb-6 overflow-x-auto pb-1 -mx-5 px-5 md:mx-0 md:px-0 md:flex-wrap scrollbar-hide">
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-1 -mx-5 px-5 md:mx-0 md:px-0 md:flex-wrap scrollbar-hide">
           {(['all', 'abtc', 'health_center', 'hospital', 'barangay_outpost'] as const).map((t) => (
             <button
               key={t}

@@ -6,6 +6,7 @@ import AnnouncementCard from '../components/AnnouncementCard';
 import CategoryFilter from '../components/CategoryFilter';
 import PublicHeader from '../components/PublicHeader';
 import MobileTabBar from '../components/MobileTabBar';
+import OfflineBanner from '../components/OfflineBanner';
 
 function SkeletonCard() {
   return (
@@ -47,11 +48,12 @@ export default function ResidentFeed() {
   return (
     <>
       <PublicHeader />
+      <OfflineBanner />
       <div className="max-w-2xl mx-auto px-5 pt-6 pb-24 md:pb-16 bg-bg min-h-[calc(100vh-64px)]">
         <header className="flex items-start justify-between mb-8">
           <div className="flex-1 text-center">
             <h1 className="text-2xl font-bold text-ink mb-1">Health Updates</h1>
-            <p className="text-xs uppercase tracking-wide text-ink-soft">Brgy. Lawa-an, Roxas City, Capiz</p>
+            <p className="text-xs uppercase tracking-wide text-ink-soft">Roxas City, Capiz</p>
           </div>
           <button
             onClick={() => load(true)}
