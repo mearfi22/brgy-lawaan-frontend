@@ -1,17 +1,9 @@
 import { useState, type FormEvent } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { submitSuggestion } from '../api/suggestions';
-import type { SuggestionCategory } from '../types/suggestion';
 import PublicHeader from '../components/PublicHeader';
 import MobileTabBar from '../components/MobileTabBar';
-
-const categoryOptions: { value: SuggestionCategory; label: string }[] = [
-  { value: 'housing', label: 'Housing Concern' },
-  { value: 'sanitation', label: 'Sanitation / Waste' },
-  { value: 'fire_hazard', label: 'Fire Hazard' },
-  { value: 'health_concern', label: 'Health Concern' },
-  { value: 'general', label: 'General Feedback' },
-];
+import OfflineBanner from '../components/OfflineBanner';
 
 const MAX_LENGTH = 2000;
 
@@ -20,7 +12,6 @@ const inputClass =
 const labelClass = 'block text-xs font-semibold uppercase tracking-wide text-primary mb-4';
 
 export default function SuggestionForm() {
-  const [category, setCategory] = useState<SuggestionCategory>('general');
   const [message, setMessage] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -32,7 +23,7 @@ export default function SuggestionForm() {
     setStatus('submitting');
     setErrorMsg('');
     try {
-      await submitSuggestion({ category, message, submitter_name: name, submitter_phone: phone });
+      await submitSuggestion({ category: 'general', message, submitter_name: name, submitter_phone: phone });
       setStatus('success');
       setMessage(''); setName(''); setPhone('');
     } catch {
@@ -44,6 +35,7 @@ export default function SuggestionForm() {
   return (
     <>
       <PublicHeader />
+      <OfflineBanner />
       <div className="min-h-[calc(100vh-64px)] bg-bg flex items-center justify-center p-6 pb-24 md:pb-6">
         {status === 'success' ? (
           <div className="bg-surface border border-line rounded-lg shadow-card p-8 max-w-sm w-full text-center">
@@ -63,13 +55,6 @@ export default function SuggestionForm() {
             <p className="text-sm text-ink-soft mb-6 leading-relaxed">
               Report housing, sanitation, fire hazards, or health concerns directly to Brgy Lawa-an.
             </p>
-
-            <label className={labelClass}>
-              Category
-              <select className={inputClass} value={category} onChange={(e) => setCategory(e.target.value as SuggestionCategory)}>
-                {categoryOptions.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
-              </select>
-            </label>
 
             <label className={labelClass}>
               Your Full Name
