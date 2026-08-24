@@ -19,10 +19,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       {/* Desktop sidebar — hidden on mobile */}
       <aside className="hidden md:flex w-60 flex-shrink-0 bg-primary-dark text-white flex-col p-4 border-r-[3px] border-accent">
         <div className="flex items-center gap-3 px-2 mb-8">
-          <img src="/logo.png" alt="Brgy Lawa-an Seal" className="w-10 h-10 object-contain flex-shrink-0" />
+          <img src="/logo.png" alt="Brgy Lawa-an Seal" className="w-10 h-10 object-contain flex--0" />
           <div>
-            <h2 className="text-base font-bold leading-tight">Brgy. Lawa-an</h2>
-            <p className="text-xs tracking-wide uppercase text-white/50">Health Portal</p>
+            <h2 className="text-base font-bold leading-tight">LawaanOnKonek</h2>
+            <p className="text-xs tracking-wide uppercase text-white/50">Brgy. Lawa-an, Roxas City, Capiz</p>
           </div>
         </div>
 
@@ -64,8 +64,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <div className="flex items-center gap-2.5">
           <img src="/logo.png" alt="Brgy Lawa-an Seal" className="w-8 h-8 object-contain flex-shrink-0" />
           <div>
-            <h2 className="text-base font-bold leading-tight">Brgy. Lawa-an</h2>
-            <p className="text-[10px] tracking-wide uppercase text-white/50">Health Portal</p>
+            <h2 className="text-base font-bold leading-tight">LawaanOnKonek</h2>
+            <p className="text-[10px] tracking-wide uppercase text-white/50">Brgy. Lawa-an, Roxas City, Capiz</p>
           </div>
         </div>
         <button

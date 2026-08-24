@@ -51,7 +51,7 @@ export default function ResidentFeed() {
         <header className="flex items-start justify-between mb-8">
           <div className="flex-1 text-center">
             <h1 className="text-2xl font-bold text-ink mb-1">Health Updates</h1>
-            <p className="text-xs uppercase tracking-wide text-ink-soft">Roxas City, Capiz</p>
+            <p className="text-xs uppercase tracking-wide text-ink-soft">Brgy. Lawa-an, Roxas City, Capiz</p>
           </div>
           <button
             onClick={() => load(true)}

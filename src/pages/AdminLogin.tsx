@@ -36,8 +36,8 @@ export default function AdminLogin() {
       <img src="/logo.png" alt="Brgy Lawa-an Seal" className="w-20 h-20 object-contain mb-5" />
 
       <form onSubmit={handleSubmit} className="bg-surface rounded-lg shadow-2xl p-8 max-w-sm w-full">
-        <h2 className="text-xl font-bold text-ink mb-1">BHW / Admin Login</h2>
-        <p className="text-xs uppercase tracking-wide text-ink-soft mb-6">Brgy Lawa-an Health Portal</p>
+        <h2 className="text-xl font-bold text-ink mb-1">Admin Login</h2>
+        <p className="text-xs uppercase tracking-wide text-ink-soft mb-6">LawaanOnKonek</p>
 
         <label className="block text-xs font-semibold uppercase tracking-wide text-primary mb-4">
           Email

@@ -17,7 +17,8 @@ export default function PublicHeader() {
         <Link to="/" className="flex items-center gap-3">
           <img src="/logo.png" alt="Brgy Lawa-an Seal" className="w-10 h-10 object-contain" />
           <span className="text-white font-extrabold text-lg tracking-tight leading-tight">
-            Brgy Lawa-an Health
+            LawaanOnKonek
+          <p className="text-[10px] tracking-wide uppercase text-white/50">Brgy. Lawa-an, Roxas City, Capiz</p>
           </span>
         </Link>
 
@@ -38,7 +39,7 @@ export default function PublicHeader() {
             to="/admin/login"
             className="border-[1.5px] border-white/40 text-white px-4 py-1.5 rounded-full font-semibold text-sm hover:bg-white hover:text-primary-dark hover:border-white transition-colors"
           >
-            BHW Login
+            Login
           </Link>
         </nav>
 
@@ -47,7 +48,7 @@ export default function PublicHeader() {
           to="/admin/login"
           className="md:hidden border-[1.5px] border-white/40 text-white px-3 py-1.5 rounded-full font-semibold text-xs"
         >
-          BHW Login
+          Login
         </Link>
       </div>
     </header>
