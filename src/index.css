@@ -1,6 +1,17 @@
 @import "tailwindcss";
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @theme {
+  a {
+  text-decoration: none;
+  }
   --color-primary: #1a3a5c;
   --color-primary-dark: #0f2439;
   --color-accent: #d4a017;

@@ -49,12 +49,12 @@ export default function Directory() {
           />
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex gap-2 mb-6 overflow-x-auto pb-1 -mx-5 px-5 md:mx-0 md:px-0 md:flex-wrap scrollbar-hide">
           {(['all', 'abtc', 'health_center', 'hospital', 'barangay_outpost'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setFilterType(t)}
-              className={`text-sm font-medium px-4 py-2 rounded-full transition-colors ${
+              className={`flex-shrink-0 whitespace-nowrap text-sm font-medium px-4 py-2 rounded-full transition-colors ${
                 filterType === t
                   ? 'bg-primary text-white'
                   : 'bg-surface border border-line text-ink-soft hover:border-primary hover:text-primary'
