@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { CheckCircle2 } from 'lucide-react';
 import { submitSuggestion } from '../api/suggestions';
 import type { SuggestionCategory } from '../types/suggestion';
 import PublicHeader from '../components/PublicHeader';
@@ -11,6 +12,8 @@ const categoryOptions: { value: SuggestionCategory; label: string }[] = [
   { value: 'health_concern', label: 'Health Concern' },
   { value: 'general', label: 'General Feedback' },
 ];
+
+const MAX_LENGTH = 2000;
 
 const inputClass =
   'block w-full mt-2 px-3.5 py-2.5 border border-line rounded-md text-sm text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15';
@@ -44,6 +47,7 @@ export default function SuggestionForm() {
       <div className="min-h-[calc(100vh-64px)] bg-bg flex items-center justify-center p-6 pb-24 md:pb-6">
         {status === 'success' ? (
           <div className="bg-surface border border-line rounded-lg shadow-card p-8 max-w-sm w-full text-center">
+            <CheckCircle2 size={40} className="mx-auto text-primary mb-3" />
             <h2 className="text-xl font-bold text-ink mb-2">Thank you!</h2>
             <p className="text-sm text-ink-soft mb-6">Your report has been sent to the barangay. A BHW may follow up with you.</p>
             <button
@@ -79,7 +83,17 @@ export default function SuggestionForm() {
 
             <label className={labelClass}>
               Details
-              <textarea className={inputClass} value={message} onChange={(e) => setMessage(e.target.value)} required rows={5} placeholder="Describe the concern..." />
+              <textarea
+                className={inputClass}
+                value={message}
+                onChange={(e) => setMessage(e.target.value.slice(0, MAX_LENGTH))}
+                required
+                rows={5}
+                placeholder="Describe the concern..."
+              />
+              <span className="block mt-1.5 text-[11px] normal-case font-normal text-ink-soft/70 text-right">
+                {message.length} / {MAX_LENGTH}
+              </span>
             </label>
 
             {status === 'error' && <p className="text-urgent text-sm mb-4">{errorMsg}</p>}
