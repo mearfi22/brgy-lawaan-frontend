@@ -10,14 +10,6 @@ const statusLabels: Record<SuggestionStatus, string> = {
   resolved: 'Resolved',
 };
 
-const categoryLabels: Record<string, string> = {
-  housing: 'Housing',
-  sanitation: 'Sanitation',
-  fire_hazard: 'Fire Hazard',
-  health_concern: 'Health Concern',
-  general: 'General',
-};
-
 const statusBorderColor: Record<SuggestionStatus, string> = {
   new: 'border-l-urgent',
   in_progress: 'border-l-accent',
@@ -80,8 +72,8 @@ export default function AdminSuggestions() {
             className={`bg-surface border border-line border-l-4 ${statusBorderColor[s.status]} rounded-md shadow-card p-5`}
           >
             <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wide text-primary">
-                {categoryLabels[s.category]}
+              <span className="text-xs font-medium text-ink-soft">
+                {new Date(s.created_at).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
 
               <div className="relative">
@@ -103,7 +95,6 @@ export default function AdminSuggestions() {
             <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-soft border-t border-dashed border-line pt-3 mb-3">
               <span>{s.submitter_name}</span>
               <span>{s.submitter_phone}</span>
-              <span>{new Date(s.created_at).toLocaleDateString('en-PH')}</span>
             </div>
 
             {expandedId === s.id ? (
