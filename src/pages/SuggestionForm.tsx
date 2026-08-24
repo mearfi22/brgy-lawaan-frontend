@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { submitSuggestion } from '../api/suggestions';
 import type { SuggestionCategory } from '../types/suggestion';
 import PublicHeader from '../components/PublicHeader';
+import MobileTabBar from '../components/MobileTabBar';
 
 const categoryOptions: { value: SuggestionCategory; label: string }[] = [
   { value: 'housing', label: 'Housing Concern' },
@@ -40,7 +41,7 @@ export default function SuggestionForm() {
   return (
     <>
       <PublicHeader />
-      <div className="min-h-[calc(100vh-64px)] bg-bg flex items-center justify-center p-6">
+      <div className="min-h-[calc(100vh-64px)] bg-bg flex items-center justify-center p-6 pb-24 md:pb-6">
         {status === 'success' ? (
           <div className="bg-surface border border-line rounded-lg shadow-card p-8 max-w-sm w-full text-center">
             <h2 className="text-xl font-bold text-ink mb-2">Thank you!</h2>
@@ -92,6 +93,7 @@ export default function SuggestionForm() {
           </form>
         )}
       </div>
+      <MobileTabBar />
     </>
   );
 }

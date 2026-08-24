@@ -17,11 +17,12 @@ export default function PublicHeader() {
         <Link to="/" className="flex items-center gap-3">
           <img src="/logo.png" alt="Brgy Lawa-an Seal" className="w-10 h-10 object-contain" />
           <span className="text-white font-extrabold text-lg tracking-tight leading-tight">
-            Brgy. Lawa-an Health
+            Brgy Lawa-an Health
           </span>
         </Link>
 
-        <nav className="flex items-center gap-5 text-sm flex-wrap">
+        {/* Desktop nav — hidden on mobile, replaced by bottom tab bar */}
+        <nav className="hidden md:flex items-center gap-5 text-sm flex-wrap">
           {navLinks.map((link) => (
             <Link
               key={link.to}
@@ -40,6 +41,14 @@ export default function PublicHeader() {
             BHW Login
           </Link>
         </nav>
+
+        {/* Mobile-only BHW login, compact */}
+        <Link
+          to="/admin/login"
+          className="md:hidden border-[1.5px] border-white/40 text-white px-3 py-1.5 rounded-full font-semibold text-xs"
+        >
+          BHW Login
+        </Link>
       </div>
     </header>
   );

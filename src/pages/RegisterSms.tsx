@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { registerResident } from '../api/residents';
 import PublicHeader from '../components/PublicHeader';
+import MobileTabBar from '../components/MobileTabBar';
 
 const inputClass =
   'block w-full mt-2 px-3.5 py-2.5 border border-line rounded-md text-sm text-ink focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15';
@@ -31,7 +32,7 @@ export default function RegisterSms() {
   return (
     <>
       <PublicHeader />
-      <div className="min-h-[calc(100vh-64px)] bg-bg flex items-center justify-center p-6">
+      <div className="min-h-[calc(100vh-64px)] bg-bg flex items-center justify-center p-6 pb-24 md:pb-6">
         {status === 'success' ? (
           <div className="bg-surface border border-line rounded-lg shadow-card p-8 max-w-sm w-full text-center">
             <h2 className="text-xl font-bold text-ink mb-2">You're registered!</h2>
@@ -79,6 +80,7 @@ export default function RegisterSms() {
           </form>
         )}
       </div>
+      <MobileTabBar />
     </>
   );
 }

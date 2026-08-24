@@ -3,6 +3,7 @@ import { Phone, Clock, MapPin } from 'lucide-react';
 import { getDirectory } from '../api/directory';
 import type { DirectoryEntry, DirectoryType } from '../types/directory';
 import PublicHeader from '../components/PublicHeader';
+import MobileTabBar from '../components/MobileTabBar';
 
 const typeLabels: Record<DirectoryType, string> = {
   abtc: 'Animal Bite Treatment Center',
@@ -25,7 +26,7 @@ export default function Directory() {
   return (
     <>
       <PublicHeader />
-      <div className="max-w-2xl mx-auto px-5 pt-6 pb-16 bg-bg min-h-[calc(100vh-64px)]">
+      <div className="max-w-2xl mx-auto px-5 pt-6 pb-24 md:pb-16 bg-bg min-h-[calc(100vh-64px)]">
         <header className="text-center mb-6">
           <h1 className="text-2xl font-bold text-ink mb-1">Health Facility Directory</h1>
           <p className="text-xs uppercase tracking-wide text-ink-soft">Roxas City, Capiz</p>
@@ -73,6 +74,7 @@ export default function Directory() {
           </article>
         ))}
       </div>
+      <MobileTabBar />
     </>
   );
 }

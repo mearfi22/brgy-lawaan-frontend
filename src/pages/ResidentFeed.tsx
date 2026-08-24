@@ -4,6 +4,7 @@ import type { Announcement, AnnouncementCategory } from '../types/announcement';
 import AnnouncementCard from '../components/AnnouncementCard';
 import CategoryFilter from '../components/CategoryFilter';
 import PublicHeader from '../components/PublicHeader';
+import MobileTabBar from '../components/MobileTabBar';
 
 export default function ResidentFeed() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
@@ -33,7 +34,7 @@ export default function ResidentFeed() {
   return (
     <>
       <PublicHeader />
-      <div className="max-w-2xl mx-auto px-5 pt-6 pb-16 bg-bg min-h-[calc(100vh-64px)]">
+      <div className="max-w-2xl mx-auto px-5 pt-6 pb-24 md:pb-16 bg-bg min-h-[calc(100vh-64px)]">
         <header className="text-center mb-8">
           <h1 className="text-2xl font-bold text-ink mb-1">Health Updates</h1>
           <p className="text-xs uppercase tracking-wide text-ink-soft">Roxas City, Capiz</p>
@@ -51,6 +52,7 @@ export default function ResidentFeed() {
           <AnnouncementCard key={a.id} announcement={a} />
         ))}
       </div>
+      <MobileTabBar />
     </>
   );
 }
